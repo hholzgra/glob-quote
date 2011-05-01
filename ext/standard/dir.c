@@ -540,6 +540,54 @@ no_results:
 	}
 }
 /* }}} */
+
+/* {{{ proto string glob_quote(string pattern)
+   Quote glob special characters */
+PHP_FUNCTION(glob_quote)
+{
+	char *pattern = NULL;
+	int pattern_len;
+	char *buf;
+	int buf_len;
+	char *s, *d;
+	int i;
+
+	if (zend_parse_parameters(1 TSRMLS_CC, "s", &pattern, &pattern_len) == FAILURE) {
+		return;
+	}
+
+	buf = (char *)emalloc(pattern_len * 3); // worst case allocation for now
+
+	s = pattern;
+	d = buf;
+
+	for (i = 0; i < pattern_len; i++) {
+		switch (*s) {
+		case '*':
+		case '?':
+		case '[':
+		case ']':
+		case '~':
+		case '{':
+		case '}':
+			*d++ = '[';
+			*d++ = *s++;
+			*d++ = ']';
+			break;
+		default:
+			*d++ = *s++;
+			break;
+		}
+    }
+
+	buf_len = d - buf;
+
+	buf = erealloc(buf, buf_len);
+
+	RETURN_STRINGL(buf, buf_len, 0);
+}
+/* }}} */
+
 #endif 
 
 /* {{{ proto array scandir(string dir [, int sorting_order [, resource context]])

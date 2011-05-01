@@ -965,6 +965,10 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_glob, 0, 0, 1)
 	ZEND_ARG_INFO(0, pattern)
 	ZEND_ARG_INFO(0, flags)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_glob_quote, 0, 0, 1)
+	ZEND_ARG_INFO(0, pattern)
+ZEND_END_ARG_INFO()
 #endif
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_scandir, 0, 0, 1)
@@ -3189,6 +3193,7 @@ const zend_function_entry basic_functions[] = { /* {{{ */
 	PHP_FE(scandir,															arginfo_scandir)
 #ifdef HAVE_GLOB
 	PHP_FE(glob,															arginfo_glob)
+	PHP_FE(glob_quote,														arginfo_glob_quote)
 #endif
 	/* functions from filestat.c */
 	PHP_FE(fileatime,														arginfo_fileatime)

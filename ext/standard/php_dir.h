@@ -35,6 +35,7 @@ PHP_FUNCTION(rewinddir);
 PHP_NAMED_FUNCTION(php_if_readdir);
 PHP_FUNCTION(getdir);
 PHP_FUNCTION(glob);
+PHP_FUNCTION(glob_quote);
 PHP_FUNCTION(scandir);
 
 #define PHP_SCANDIR_SORT_ASCENDING 0
